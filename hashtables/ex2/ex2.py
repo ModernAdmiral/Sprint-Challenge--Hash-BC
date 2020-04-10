@@ -14,10 +14,24 @@ class Ticket:
 
 def reconstruct_trip(tickets, length):
     hashtable = HashTable(length)
-    route = [None] * length
+    # route = [None] * length
 
     """
     YOUR CODE HERE
     """
+    # fill hashtable with tickets key = source and value = destination
+    for ticket in tickets:
+        hash_table_insert(hashtable, ticket.source, ticket.destination)
 
-    pass
+    answer = []
+    # find the first ticket and start there
+    current_end = hash_table_retrieve(hashtable, "NONE")
+
+    while current_end is not "NONE":
+        # append next
+        answer.append(current_end)
+        # update current
+        current_start = hash_table_retrieve(hashtable, current_end)
+        current_end = current_start
+
+    return answer
